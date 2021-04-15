@@ -1,0 +1,9 @@
+#init params
+in_path :D:\Drive\Progetti\Archiviati\Essetre\rf_export\in
+out_path :D:\Drive\Progetti\Archiviati\Essetre\rf_export\out
+#
+delete_source :0
+prefix_cli :CLI
+prefix :FTV
+suffix :csv
+desrig :25
