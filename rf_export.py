@@ -411,7 +411,7 @@ class main():
                     Primafattura = False
                     i+=1
                     r=1
-            elif NumeroLinea !='1' and not Primafattura:
+            elif (NumeroLinea !='1' and NumeroLinea !='' and not Primafattura):
                     r+=1
             elif NumeroLinea =='1' and not Primafattura:
                     Fattureriga.append((i,r))
@@ -452,6 +452,7 @@ class main():
                 out_file.write(self.custom_row_logic(riga,TDA))
                 r += 1
 
+            riga = DatiFatture[r-1]
             payment_detail = self.get_payments(riga)
             iva_detail = self.get_ivasplit(riga)
 
@@ -463,10 +464,12 @@ class main():
                     codiva = ' '
                     if iva[0][1] == '0.00':
                         codiva=iva[1][1]
+                        totiva = '0.00'
                     else:
                         codiva=iva[0][1]
+                        totiva = iva[3][1]
                     impiva = iva[2][1]
-                    totiva = iva[3][1]
+
                     campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9',codiva, impiva, totiva,'+6',TDA]
                     out_file.write(self.custom_rows(campi,riga))
                     iva_start+=1
@@ -483,17 +486,22 @@ class main():
                     bancariga = ''
                     abiriga = ''
                     cabriga = ''
-                    try:
-                        if payment[0][1] == 'MP05':
-                            bancariga = payment[4][1]
-                            abiriga = ' '
-                            cabriga = ' '
-                        else:
+                    #try:
+                    if payment[0][1] == 'MP05':
+                        bancariga = payment[4][1]
+                        abiriga = ' '
+                        cabriga = ' '
+                    else:
+                        try:
                             bancariga = payment[4][1]
                             abiriga = payment[5][1]
                             cabriga = payment[6][1]
-                    except:
-                        pass
+                        except:
+                            bancariga = 'NON PRESENTE'
+                            abiriga = 'NON PRESENTE'
+                            cabriga = 'NON PRESENTE'
+                    #except:
+                        #pass
                         
                     campi = ['PAR','>NREG','>DREG','>CodCliEsterno',' ','0', str(par_start),'+12',str(payment[1][1]),str(payment[0][1]),bancariga,abiriga,cabriga,str(payment[2][1]),TDA]
                     out_file.write(self.custom_rows(campi,riga))
@@ -567,7 +575,7 @@ class main():
             elif field == 'CodCliEsterno':
                 res = self.get_field('CodiceNazione',riga) + self.get_field('Piva',riga)
                 if not res:
-                    res = self.get_field('CodiceFiscale',riga)
+                    res = 'IT' + self.get_field('CodiceFiscale',riga)
             elif field == 'RagSoc1':
                 res = self.get_field('RagSoc1',riga)
                 res = res[:29]
@@ -694,9 +702,10 @@ class main():
         try:
             for v in riga:
                 if isinstance(v, list):
-                    if 'ModalitaPagamento' in v[0][0][0]:
-                        for k in v:
-                            payment_detail.append(str(k))
+                    if len(v)>0:
+                        if 'ModalitaPagamento' in v[0][0][0]:
+                            for k in v:
+                                payment_detail.append(str(k))
         except:
             pass
         return payment_detail
