@@ -435,13 +435,13 @@ class main():
             if EsigibilitaIVA == 'S':
                 TDA = '61'
 
-            campi = ['TES','>NREG','>DREG','>CodCliEsterno','>CodPag','0',' ','+18',TDA]
+            campi = ['TES','>NREG','>DREG','>CodCliEsterno','>CodPag','0',' ','+18',TDA,'>TipoDocumento']
             out_file.write(self.custom_rows(campi,riga))
 
             #Verifichiamo la causale sia compilata
             if self.custom_field('Causale',riga)!='':
                 ### RIGA CAUSALE
-                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','20','0,5',' ',' ','>Causale','+15',TDA]
+                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','20','0,5',' ',' ','>Causale','+15',TDA,'>TipoDocumento']
                 out_file.write(self.custom_rows(campi,riga))
 
             #scriviamo le righe articolo
@@ -470,11 +470,11 @@ class main():
                         totiva = iva[3][1]
                     impiva = iva[2][1]
 
-                    campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9',codiva, impiva, totiva,'+6',TDA]
+                    campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9',codiva, impiva, totiva,'+6',TDA,'>TipoDocumento']
                     out_file.write(self.custom_rows(campi,riga))
                     iva_start+=1
             else:
-                campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9','>IVA_CodIva','>IVA_ImpTot','>IVA_IvaTot','+6',TDA]
+                campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9','>IVA_CodIva','>IVA_ImpTot','>IVA_IvaTot','+6',TDA,'>TipoDocumento']
                 out_file.write(self.custom_rows(campi,riga))
 
             par_start = 1100
@@ -503,11 +503,11 @@ class main():
                     #except:
                         #pass
                         
-                    campi = ['PAR','>NREG','>DREG','>CodCliEsterno',' ','0', str(par_start),'+12',str(payment[1][1]),str(payment[0][1]),bancariga,abiriga,cabriga,str(payment[2][1]),TDA]
+                    campi = ['PAR','>NREG','>DREG','>CodCliEsterno',' ','0', str(par_start),'+12',str(payment[1][1]),str(payment[0][1]),bancariga,abiriga,cabriga,str(payment[2][1]),TDA,'>TipoDocumento']
                     out_file.write(self.custom_rows(campi,riga))
                     par_start+=1
             else:
-                campi = ['PAR','>NREG','>DREG','>CodCliEsterno',' ','0', str(par_start),'+12','>PAR_Scad','>CodPag','>PAR_BancaAzienda','>PAR_ABI_Cliente','>PAR_CAB_Cliente','>PAR_Importo',TDA]
+                campi = ['PAR','>NREG','>DREG','>CodCliEsterno',' ','0', str(par_start),'+12','>PAR_Scad','>CodPag','>PAR_BancaAzienda','>PAR_ABI_Cliente','>PAR_CAB_Cliente','>PAR_Importo',TDA,'>TipoDocumento']
                 out_file.write(self.custom_rows(campi,riga))
 
         out_file.close()
@@ -523,15 +523,15 @@ class main():
             if art !='':
                 #tipo 40
                 ### PRIMA RIGA ARTICOLO
-                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','40','>NrRiga','>CodArt','>DesRiga',' ','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA]
+                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','40','>NrRiga','>CodArt','>DesRiga',' ','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento']
             else:
                 #tipo 40 con addebito
                 ### PRIMA RIGA ARTICOLO
-                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','40','>NrRiga','ADDEBITO','>DesRiga',' ','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA]
+                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','40','>NrRiga','ADDEBITO','>DesRiga',' ','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento']
         if qta =='' and imp=='':
                 #tipo 20
                 ### PRIMA RIGA ARTICOLO
-                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','20','>NrRiga','>CodArt',' ','>DesRiga','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA]
+                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','20','>NrRiga','>CodArt',' ','>DesRiga','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento']
 
         rigacsv_art = self.custom_rows(campi,riga)
         return rigacsv_art
@@ -665,6 +665,8 @@ class main():
                     res = ''
             elif field == 'PAR_Importo':
                 res = self.get_field('ImportoPagamento',riga)
+            elif field == 'TipoDocumento':
+                res = self.get_field('TipoDocumento',riga)
             elif field == 'Rata':
                 res = self.get_field('Rata',riga)
             else:
