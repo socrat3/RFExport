@@ -13,17 +13,17 @@ class main():
 
     def __init__(self):
 
-        self.folder_path = ''
-        self.output_path = ''
+        self.folder_path = 'C:\scarica2\FattureRicevute_MLTFRC90P56A089C\Fatture Elettroniche\in'
+        self.output_path = 'C:\scarica2\FattureRicevute_MLTFRC90P56A089C\Fatture Elettroniche\out'
         #self.temp_path = ''
         self.prefix = ''
         self.delete_source = ''
 
-        #self.folder_path = r'D:\Essetre\rf_export\in'
-        #self.output_path = r'D:\Essetre\rf_export\out'
+        self.folder_path = r'C:\scarica2\FattureRicevute_MLTFRC90P56A089C\Fatture Elettroniche\in'
+        self.output_path = r'C:\scarica2\FattureRicevute_MLTFRC90P56A089C\Fatture Elettroniche\out'
 
-        self.folder_path = self.get_init('in_path')
-        self.output_path = self.get_init('out_path')
+        #self.folder_path = self.get_init('in_path')
+        #self.output_path = self.get_init('out_path')
         self.prefix_cli = self.get_init('prefix_cli')
         self.prefix = self.get_init('prefix')
         self.suffix = self.get_init('suffix')
@@ -435,13 +435,13 @@ class main():
             if EsigibilitaIVA == 'S':
                 TDA = '61'
 
-            campi = ['TES','>NREG','>DREG','>CodCliEsterno','>CodPag','0',' ','+18',TDA,'>TipoDocumento']
+            campi = ['TES','>NREG','>DREG','>CodCliEsterno','>CodPag','0',' ','+18',TDA,'>TipoDocumento','>TipoRitenuta','>ImportoRitenuta','>AliquotaRitenuta','>CausalePagamento']
             out_file.write(self.custom_rows(campi,riga))
 
             #Verifichiamo la causale sia compilata
             if self.custom_field('Causale',riga)!='':
                 ### RIGA CAUSALE
-                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','20','0,5',' ',' ','>Causale','+15',TDA,'>TipoDocumento']
+                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','20','0,5',' ',' ','>Causale','+15',TDA,'>TipoDocumento','>TipoRitenuta','>ImportoRitenuta','>AliquotaRitenuta','>CausalePagamento']
                 out_file.write(self.custom_rows(campi,riga))
 
             #scriviamo le righe articolo
@@ -470,11 +470,11 @@ class main():
                         totiva = iva[3][1]
                     impiva = iva[2][1]
 
-                    campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9',codiva, impiva, totiva,'+6',TDA,'>TipoDocumento']
+                    campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9',codiva, impiva, totiva,'+6',TDA,'>TipoDocumento','>TipoRitenuta','>ImportoRitenuta','>AliquotaRitenuta','>CausalePagamento']
                     out_file.write(self.custom_rows(campi,riga))
                     iva_start+=1
             else:
-                campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9','>IVA_CodIva','>IVA_ImpTot','>IVA_IvaTot','+6',TDA,'>TipoDocumento']
+                campi = ['IVA','>NREG','>DREG','>CodCliEsterno',' ','0',str(iva_start),'+9','>IVA_CodIva','>IVA_ImpTot','>IVA_IvaTot','+6',TDA,'>TipoDocumento','>TipoRitenuta','>ImportoRitenuta','>AliquotaRitenuta','>CausalePagamento']
                 out_file.write(self.custom_rows(campi,riga))
 
             par_start = 1100

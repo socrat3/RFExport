@@ -25,4 +25,8 @@ PAR_CAB_Cliente
 PAR_ImportoRata
 TipoDocAuto
 TipoDocumento
+TipoRitenuta
+ImportoRitenuta
+AliquotaRitenuta
+CausalePagamento
 EstraiDesRiga
