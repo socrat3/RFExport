@@ -456,7 +456,7 @@ class main():
             payment_detail = self.get_payments(riga)
             iva_detail = self.get_ivasplit(riga)
 
-            iva_start = 1001
+            iva_start = 1000
             ### RIGA IVA
             if len(iva_detail)>0:
                 for iva in iva_detail:
