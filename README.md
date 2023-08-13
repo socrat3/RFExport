@@ -10,8 +10,8 @@ rf_export.exe ‘c:\temp\in’  ‘c:\temp\out'
 Di default prende i parametri dal file _init presente nella stessa directory
 _init
 #init params
-in_path :D:\Essetre\rf_export\in
-out_path :D:\Essetre\rf_export\out
+in_path :C:\scarica\in
+out_path :C:\scarica\rf_export\out
 #
 
 #Se impostato a 1 elimina i file sorgente
