@@ -456,7 +456,7 @@ class main():
             payment_detail = self.get_payments(riga)
             iva_detail = self.get_ivasplit(riga)
 
-            iva_start = 1000
+            iva_start = 1001
             ### RIGA IVA
             if len(iva_detail)>0:
                 for iva in iva_detail:
@@ -523,15 +523,15 @@ class main():
             if art !='':
                 #tipo 40
                 ### PRIMA RIGA ARTICOLO
-                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','40','>NrRiga','>CodArt','>DesRiga',' ','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento']
+                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','40','>NrRiga','>CodArt','>DesRiga',' ','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento','>TipoRitenuta','>ImportoRitenuta','>AliquotaRitenuta','>CausalePagamento']
             else:
                 #tipo 40 con addebito
                 ### PRIMA RIGA ARTICOLO
-                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','40','>NrRiga','ADDEBITO','>DesRiga',' ','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento']
+                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','40','>NrRiga','ADDEBITO','>DesRiga',' ','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento','>TipoRitenuta','>ImportoRitenuta','>AliquotaRitenuta','>CausalePagamento']
         if qta =='' and imp=='':
                 #tipo 20
                 ### PRIMA RIGA ARTICOLO
-                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','20','>NrRiga','>CodArt',' ','>DesRiga','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento']
+                campi = ['RIG','>NREG','>DREG','>CodCliEsterno',' ','20','>NrRiga','>CodArt',' ','>DesRiga','>UM','>Qta','>Prezzo','>Sconto1','>Importo','>CodIva','+9',TDA,'>TipoDocumento','>TipoRitenuta','>ImportoRitenuta','>AliquotaRitenuta','>CausalePagamento']
 
         rigacsv_art = self.custom_rows(campi,riga)
         return rigacsv_art
