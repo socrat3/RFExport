@@ -396,15 +396,15 @@ class main():
             c+=1
             NumeroFattura = self.get_field('Numero',riga)
 
-            log_file.write('--------------------------------------------------\n')
-            log_file.write(NumeroFattura+'\n')
+            log_file.write('XXX----------------------------------------------\n')
+            #log_file.write(NumeroFattura+'\n')
 
             if NumeroFattura not in FattureHeader:
                 FattureHeader.append(NumeroFattura)
 
             NumeroLinea = self.get_field('NumeroLinea',riga)
 
-            log_file.write(str(NumeroLinea)+'\n')
+            #log_file.write(str(NumeroLinea)+'\n')
             log_file.write(str(riga)+'\n')
 
             if NumeroLinea =='1' and Primafattura:
